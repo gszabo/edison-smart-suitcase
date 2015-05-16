@@ -7,10 +7,11 @@ var queue = {
     addRawSensorData: function(sensorData) {
         console.log(sensorData);
 
+        
     },
 
     nextStep: function() {
-    	
+
     }
 
 };

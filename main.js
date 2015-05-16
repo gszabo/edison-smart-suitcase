@@ -1,10 +1,9 @@
 
 "use strict";
 
-var pwmutil = require('./util/pwmutil');
 var queue = require('./queue');
 var connection = require('./phone-connection');
-var proximityAlert = require('./proximity-alert');
+var agent = require('./agent');
 
 var STATES = {
   FOLLOWING: 1,
@@ -13,27 +12,30 @@ var STATES = {
 
 var state = STATES.FOLLOWING;
 
-proximityAlert.startRun();
+agent.init();
 
 setInterval(function() {
 
-    if (proximityAlert.isTooClose()) {
-      state = STATES.HALTED;
+    if (agent.isTooClose()) {
+        state = STATES.HALTED;
     } else {
         state = STATES.FOLLOWING;
-        queue.nextStep();
     }
 
     switch (state) {
 
       case STATES.FOLLOWING:
-        pwmutil.stopSound(3);
+        agent.shutUp();
         console.log('FOLLOWING');
+
+        var step = queue.nextStep();
+
         break;
 
       case STATES.HALTED:
         console.log('STOP');
-        pwmutil.playSound(3, 0.6, 50000);
+
+        agent.speak();
         break;
   }
 
