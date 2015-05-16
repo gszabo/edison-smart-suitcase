@@ -6,7 +6,10 @@ var queue = require('./queue');
 var SENSORS = {
     ACCELEROMETER: '3',
     GYROSCOPE: '4',
-    MAGNETOMETER: '5'
+    MAGNETOMETER: '5',
+    ORIENTATION: '81',
+    GRAVITY: '83',
+    LINEARACCELEROMETER: '82'
 }
 
 function injectSensorData(sensor, msg) {
@@ -30,7 +33,10 @@ s.on('message', function(msg, rinfo) {
     timeStamp: parseFloat(msg[0]),
     accelerometer: injectSensorData(SENSORS.ACCELEROMETER, msg),
     gyroscope: injectSensorData(SENSORS.GYROSCOPE, msg),
-    magnetometer: injectSensorData(SENSORS.MAGNETOMETER, msg)
+    magnetometer: injectSensorData(SENSORS.MAGNETOMETER, msg),
+    orientation: injectSensorData(SENSORS.ORIENTATION, msg),
+    gravity: injectSensorData(SENSORS.GRAVITY, msg),
+    linear: injectSensorData(SENSORS.LINEARACCELEROMETER, msg)
   };
 
   queue.addRawSensorData(sensorData);

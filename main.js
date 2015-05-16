@@ -1,18 +1,41 @@
 
 "use strict";
 
-var wyliodrin = require("wyliodrin");
 var pwmutil = require('./util/pwmutil');
+var queue = require('./queue');
+var connection = require('./phone-connection');
+var proximityAlert = require('./proximity-alert');
 
-//var connection = require('./phone-connection');
+var STATES = {
+  FOLLOWING: 1,
+  HALTED: 2
+};
 
+var state = STATES.FOLLOWING;
 
-var i = 0;
+proximityAlert.startRun();
+
 setInterval(function() {
-  var reading = wyliodrin.analogRead(0);
 
-  if (reading > 200) {
-    console.log(reading + ' STOP ' + i++);
+    if (proximityAlert.isTooClose()) {
+      state = STATES.HALTED;
+    } else {
+        state = STATES.FOLLOWING;
+        queue.nextStep();
+    }
+
+    switch (state) {
+
+      case STATES.FOLLOWING:
+        pwmutil.stopSound(3);
+        console.log('FOLLOWING');
+        break;
+
+      case STATES.HALTED:
+        console.log('STOP');
+        pwmutil.playSound(3, 0.6, 50000);
+        break;
   }
-}, 500);
 
+
+}, 200);
