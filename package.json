@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/gszabo/edison-smart-suitcase/issues"
   },
-  "homepage": "https://github.com/gszabo/edison-smart-suitcase"
+  "homepage": "https://github.com/gszabo/edison-smart-suitcase",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
 }
