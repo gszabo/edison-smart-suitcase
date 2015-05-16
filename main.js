@@ -2,6 +2,7 @@
 "use strict";
 
 var wyliodrin = require("wyliodrin");
+var pwmutil = require('./util/pwmutil');
 
 //var connection = require('./phone-connection');
 
@@ -15,5 +16,3 @@ setInterval(function() {
   }
 }, 500);
 
-var buzzer = new jsupm_buzzer.Buzzer(3);
-buzzer.playSound(3300, 1000);
