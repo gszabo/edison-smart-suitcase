@@ -30,6 +30,8 @@ setInterval(function() {
 
         var step = queue.nextStep();
 
+        agent.rotate(step.direction);
+        agent.move(step.displacement);
         break;
 
       case STATES.HALTED:
