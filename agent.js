@@ -31,7 +31,6 @@ module.exports = {
     },
 
     rotate: function(angle) {
-        var pwm = new mra.Pwm(port);
 
         HANDLERS.SOUND.enable(true);
         // 20 ms
@@ -41,7 +40,7 @@ module.exports = {
         HANDLERS.SOUND.write(dutyCycle);
     },
 
-    move: function(port, distance) {
+    move: function(distance) {
         console.log('are you kidding :)... moving to ' + distance);
     }
 };

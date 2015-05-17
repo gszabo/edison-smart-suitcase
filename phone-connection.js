@@ -1,5 +1,4 @@
 var dgram = require('dgram');
-var BufferReader = require('buffer-reader');
 var s = dgram.createSocket('udp4');
 var queue = require('./queue');
 

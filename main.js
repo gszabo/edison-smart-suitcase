@@ -13,8 +13,11 @@ var STATES = {
 var state = STATES.FOLLOWING;
 
 agent.init();
+var sumDist = 0;
+
 
 setInterval(function() {
+
 
     if (agent.isTooClose()) {
         state = STATES.HALTED;
@@ -28,10 +31,18 @@ setInterval(function() {
         agent.shutUp();
         console.log('FOLLOWING');
 
-        var step = queue.nextStep();
-
-        agent.rotate(step.direction);
-        agent.move(step.displacement);
+        var step = queue.nextStepAggregate();
+        if (step) {
+          //console.log('rotating', step.direction);
+          //agent.rotate(step.direction);
+          //console.log(step.displacement);
+          //agent.move(step.displacement);
+          if (step.displacement < 0) {
+            console.log('NANA', step.displacement);
+          }
+          sumDist += step.displacement;
+          console.log('sumDist', sumDist);
+        }
         break;
 
       case STATES.HALTED:
